@@ -1,696 +1,1020 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Nisha D — Electronics & BMS Engineer</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nisha D — Electronics & BMS Engineer</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  :root {
-    --bg:        #0a0a0f;
-    --surface:   #111118;
-    --border:    #1e1e2e;
-    --accent:    #7c6af7;      /* electric violet — signal trace on PCB */
-    --accent2:   #3ecfb2;      /* oscilloscope teal */
-    --accent3:   #f5a623;      /* amber LED */
-    --text:      #e8e8f0;
-    --muted:     #6b6b8a;
-    --mono:      'JetBrains Mono', monospace;
-    --sans:      'Space Grotesk', sans-serif;
-  }
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --border: #1e1e2e;
+      --accent: #7c6af7;
+      /* electric violet — signal trace on PCB */
+      --accent2: #3ecfb2;
+      /* oscilloscope teal */
+      --accent3: #f5a623;
+      /* amber LED */
+      --text: #e8e8f0;
+      --muted: #6b6b8a;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Space Grotesk', sans-serif;
+    }
 
-  html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-  /* ── GRID TRACE BACKGROUND ── */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image:
-      linear-gradient(rgba(124,106,247,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(124,106,247,0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
+    /* ── GRID TRACE BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124, 106, 247, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 106, 247, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2rem;
-    height: 56px;
-    background: rgba(10,10,15,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-brand {
-    font-family: var(--mono);
-    font-size: 0.85rem;
-    color: var(--accent);
-    letter-spacing: 0.05em;
-  }
-  .nav-links { display: flex; gap: 2rem; }
-  .nav-links a {
-    font-size: 0.82rem;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.03em;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--text); }
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 56px;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
 
-  /* ── HERO ── */
-  .hero {
-    position: relative; z-index: 1;
-    min-height: 100vh;
-    display: flex; align-items: center;
-    padding: 80px 2rem 4rem;
-    max-width: 1100px; margin: 0 auto;
-    gap: 4rem;
-  }
-  .hero-text { flex: 1; }
-  .hero-eyebrow {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    color: var(--accent2);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-  .hero-name {
-    font-size: clamp(3rem, 8vw, 5.5rem);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 0.5rem;
-  }
-  .hero-title {
-    font-family: var(--mono);
-    font-size: 1rem;
-    color: var(--accent3);
-    margin-bottom: 1.5rem;
-  }
-  .hero-bio {
-    font-size: 1.05rem;
-    color: #a0a0b8;
-    max-width: 520px;
-    margin-bottom: 2rem;
-    line-height: 1.8;
-  }
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.65rem 1.4rem;
-    border-radius: 6px;
-    font-family: var(--sans);
-    font-size: 0.875rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.2s;
-    cursor: pointer;
-    border: none;
-  }
-  .btn-primary {
-    background: var(--accent);
-    color: #fff;
-  }
-  .btn-primary:hover { background: #9080ff; transform: translateY(-1px); }
-  .btn-outline {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .nav-brand {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
 
-  /* CGPA badge */
-  .hero-badge {
-    position: relative; z-index: 1;
-    flex-shrink: 0;
-    width: 220px;
-  }
-  .badge-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 2rem 1.5rem;
-    text-align: center;
-  }
-  .badge-card .cgpa-num {
-    font-size: 3.5rem;
-    font-weight: 700;
-    color: var(--accent2);
-    line-height: 1;
-    font-family: var(--mono);
-  }
-  .badge-card .cgpa-label {
-    font-size: 0.72rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-top: 0.25rem;
-  }
-  .badge-card .cgpa-inst {
-    font-size: 0.78rem;
-    color: #a0a0b8;
-    margin-top: 1rem;
-    line-height: 1.5;
-  }
-  .badge-divider {
-    height: 1px;
-    background: var(--border);
-    margin: 1rem 0;
-  }
-  .badge-pill {
-    display: inline-block;
-    background: rgba(62,207,178,0.1);
-    color: var(--accent2);
-    border: 1px solid rgba(62,207,178,0.2);
-    border-radius: 20px;
-    padding: 0.2rem 0.75rem;
-    font-size: 0.7rem;
-    font-family: var(--mono);
-  }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
 
-  /* ── SECTION BASE ── */
-  section {
-    position: relative; z-index: 1;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 5rem 2rem;
-  }
-  .section-label {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--accent);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-  .section-title {
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 3rem;
-  }
-  .divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 0 2rem;
-  }
+    .nav-links a {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
 
-  /* ── SKILLS ── */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.25rem;
-  }
-  .skill-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .skill-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-  }
-  .skill-card-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-  }
-  .skill-card-title {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-  }
-  .skill-tags {
-    display: flex; flex-wrap: wrap; gap: 0.4rem;
-    margin-top: 0.75rem;
-  }
-  .tag {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    background: rgba(124,106,247,0.1);
-    color: var(--accent);
-    border: 1px solid rgba(124,106,247,0.2);
-    border-radius: 4px;
-    padding: 0.15rem 0.5rem;
-  }
-  .tag.teal {
-    background: rgba(62,207,178,0.08);
-    color: var(--accent2);
-    border-color: rgba(62,207,178,0.2);
-  }
-  .tag.amber {
-    background: rgba(245,166,35,0.08);
-    color: var(--accent3);
-    border-color: rgba(245,166,35,0.2);
-  }
+    .nav-links a:hover {
+      color: var(--text);
+    }
 
-  /* ── PROJECTS ── */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-  }
-  .project-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.75rem;
-    transition: border-color 0.25s, transform 0.25s;
-    display: flex; flex-direction: column;
-  }
-  .project-card:hover {
-    border-color: var(--accent2);
-    transform: translateY(-3px);
-  }
-  .project-card.featured {
-    grid-column: span 2;
-    border-color: rgba(124,106,247,0.3);
-  }
-  .project-num {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--muted);
-    margin-bottom: 1rem;
-    letter-spacing: 0.1em;
-  }
-  .project-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: var(--text);
-  }
-  .project-desc {
-    font-size: 0.9rem;
-    color: #8888a8;
-    line-height: 1.7;
-    flex: 1;
-  }
-  .project-stack {
-    display: flex; flex-wrap: wrap; gap: 0.4rem;
-    margin-top: 1.25rem;
-  }
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 2rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      gap: 4rem;
+    }
 
-  /* ── EXPERIENCE ── */
-  .exp-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent3);
-    border-radius: 0 12px 12px 0;
-    padding: 1.5rem 1.75rem;
-    margin-bottom: 1rem;
-  }
-  .exp-role { font-weight: 600; font-size: 1rem; }
-  .exp-place {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    color: var(--accent3);
-    margin-top: 0.25rem;
-  }
-  .exp-desc { font-size: 0.88rem; color: #8888a8; margin-top: 0.5rem; line-height: 1.6; }
+    .hero-text {
+      flex: 1;
+    }
 
-  /* ── EDUCATION TIMELINE ── */
-  .edu-list { display: flex; flex-direction: column; gap: 1rem; }
-  .edu-item {
-    display: flex; gap: 1.5rem; align-items: flex-start;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem 1.5rem;
-    transition: border-color 0.2s;
-  }
-  .edu-item:hover { border-color: var(--accent); }
-  .edu-year {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--muted);
-    white-space: nowrap;
-    padding-top: 0.2rem;
-    min-width: 80px;
-  }
-  .edu-degree { font-weight: 600; font-size: 0.95rem; }
-  .edu-school { font-size: 0.82rem; color: var(--muted); margin-top: 0.2rem; }
-  .edu-score {
-    display: inline-block;
-    background: rgba(62,207,178,0.1);
-    color: var(--accent2);
-    border: 1px solid rgba(62,207,178,0.2);
-    border-radius: 4px;
-    padding: 0.1rem 0.5rem;
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    margin-top: 0.5rem;
-  }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent2);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
 
-  /* ── CONTACT ── */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
-  }
-  .contact-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem 1.5rem;
-    display: flex; align-items: center; gap: 1rem;
-    text-decoration: none;
-    color: var(--text);
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .contact-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    color: var(--accent);
-  }
-  .contact-icon { font-size: 1.3rem; }
-  .contact-label { font-size: 0.72rem; color: var(--muted); }
-  .contact-value { font-size: 0.85rem; font-weight: 500; }
+    .hero-name {
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
 
-  /* ── FOOTER ── */
-  footer {
-    position: relative; z-index: 1;
-    border-top: 1px solid var(--border);
-    padding: 2rem;
-    text-align: center;
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--muted);
-  }
+    .hero-title {
+      font-family: var(--mono);
+      font-size: 1rem;
+      color: var(--accent3);
+      margin-bottom: 1.5rem;
+    }
 
-  /* ── PULSE DOT ── */
-  .pulse {
-    display: inline-block;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--accent2);
-    margin-right: 6px;
-    position: relative;
-  }
-  .pulse::after {
-    content: '';
-    position: absolute; inset: -4px;
-    border-radius: 50%;
-    border: 1px solid var(--accent2);
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%   { opacity: 1; transform: scale(1); }
-    100% { opacity: 0; transform: scale(2); }
-  }
+    .hero-bio {
+      font-size: 1.05rem;
+      color: #a0a0b8;
+      max-width: 520px;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .hero { flex-direction: column; gap: 2rem; padding-top: 100px; }
-    .hero-badge { width: 100%; }
-    .badge-card { display: flex; align-items: center; gap: 1.5rem; text-align: left; }
-    .project-card.featured { grid-column: span 1; }
-    .nav-links { display: none; }
-  }
-</style>
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.4rem;
+      border-radius: 6px;
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #9080ff;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* CGPA badge */
+    /* ── CGPA GLASS BADGE CARD ── */
+    .hero-badge-glass {
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+      width: 250px;
+      height: 380px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      /* Frosted glass border */
+      background: var(--surface);
+      /* Fallback */
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hero-badge-glass:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 25px 50px rgba(124, 106, 247, 0.15);
+    }
+
+    /* Dark frosted overlay for text legibility */
+    .hero-badge-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+          rgba(10, 10, 15, 0.15) 0%,
+          rgba(10, 10, 15, 0.6) 45%,
+          rgba(10, 10, 15, 0.95) 100%);
+      z-index: 1;
+      transition: background 0.3s ease;
+    }
+
+    .hero-badge-glass:hover .hero-badge-overlay {
+      background: linear-gradient(to bottom,
+          rgba(10, 10, 15, 0.05) 0%,
+          rgba(10, 10, 15, 0.5) 45%,
+          rgba(10, 10, 15, 0.85) 100%);
+    }
+
+    /* Content container overlay */
+    .hero-badge-content {
+      position: relative;
+      z-index: 2;
+      padding: 1.75rem 1.25rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    .hero-badge-content .cgpa-num {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--accent2);
+      line-height: 1;
+      font-family: var(--mono);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-badge-content .cgpa-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-badge-content .cgpa-inst {
+      font-size: 0.78rem;
+      color: #e8e8f0;
+      margin-top: 1rem;
+      line-height: 1.5;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    }
+
+    .badge-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.12);
+      margin: 1rem 0;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      background: rgba(62, 207, 178, 0.15);
+      color: var(--accent2);
+      border: 1px solid rgba(62, 207, 178, 0.3);
+      border-radius: 20px;
+      padding: 0.2rem 0.75rem;
+      font-size: 0.7rem;
+      font-family: var(--mono);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+
+    /* ── SECTION BASE ── */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 2rem;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .skill-card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-card-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      background: rgba(124, 106, 247, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(124, 106, 247, 0.2);
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+    }
+
+    .tag.teal {
+      background: rgba(62, 207, 178, 0.08);
+      color: var(--accent2);
+      border-color: rgba(62, 207, 178, 0.2);
+    }
+
+    .tag.amber {
+      background: rgba(245, 166, 35, 0.08);
+      color: var(--accent3);
+      border-color: rgba(245, 166, 35, 0.2);
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: border-color 0.25s, transform 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent2);
+      transform: translateY(-3px);
+    }
+
+    .project-card.featured {
+      grid-column: span 2;
+      border-color: rgba(124, 106, 247, 0.3);
+    }
+
+    .project-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+    }
+
+    .project-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: #8888a8;
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent3);
+      border-radius: 0 12px 12px 0;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .exp-role {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .exp-place {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent3);
+      margin-top: 0.25rem;
+    }
+
+    .exp-desc {
+      font-size: 0.88rem;
+      color: #8888a8;
+      margin-top: 0.5rem;
+      line-height: 1.6;
+    }
+
+    /* ── EDUCATION TIMELINE ── */
+    .edu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .edu-item {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .edu-item:hover {
+      border-color: var(--accent);
+    }
+
+    .edu-year {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      white-space: nowrap;
+      padding-top: 0.2rem;
+      min-width: 80px;
+    }
+
+    .edu-degree {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .edu-school {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    .edu-score {
+      display: inline-block;
+      background: rgba(62, 207, 178, 0.1);
+      color: var(--accent2);
+      border: 1px solid rgba(62, 207, 178, 0.2);
+      border-radius: 4px;
+      padding: 0.1rem 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ── SPEAKING (TEDx CARD) ── */
+    .speaking-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid #eb0028;
+      /* TED Red Accent */
+      border-radius: 0 12px 12px 0;
+      padding: 2rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .speaking-card:hover {
+      border-color: #eb0028;
+      transform: translateY(-2px);
+    }
+
+    .speaking-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .tedx-badge {
+      background: #eb0028;
+      color: #fff;
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .speaking-event {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .speaking-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+      color: var(--text);
+    }
+
+    .speaking-desc {
+      font-size: 0.9rem;
+      color: #8888a8;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .tedx-btn {
+      border-color: rgba(235, 0, 40, 0.4);
+      color: #eb0028;
+    }
+
+    .tedx-btn:hover {
+      background: rgba(235, 0, 40, 0.08);
+      border-color: #eb0028;
+      color: #eb0028;
+    }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .contact-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      color: var(--accent);
+    }
+
+    .contact-icon {
+      font-size: 1.3rem;
+    }
+
+    .contact-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .contact-value {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ── PULSE DOT ── */
+    .pulse {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent2);
+      margin-right: 6px;
+      position: relative;
+    }
+
+    .pulse::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid var(--accent2);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(2);
+      }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        gap: 2rem;
+        padding-top: 100px;
+      }
+
+      .hero-badge-glass {
+        width: 100%;
+        max-width: 320px;
+        height: 380px;
+        margin: 0 auto;
+      }
+
+
+      .project-card.featured {
+        grid-column: span 1;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <span class="nav-brand">// nisha-d.portfolio</span>
-  <div class="nav-links">
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#experience">Experience</a>
-    <a href="#education">Education</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-text">
-    <div class="hero-eyebrow">
-      <span class="pulse"></span>Open to Internships &amp; Opportunities
+  <!-- NAV -->
+  <nav>
+    <span class="nav-brand">// nisha-d.portfolio</span>
+    <div class="nav-links">
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#publicspeaking">Public Speaking</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
     </div>
-    <h1 class="hero-name">Nisha D</h1>
-    <div class="hero-title">Electronics &amp; Instrumentation · BMS Engineer</div>
-    <p class="hero-bio">
-      Building intelligent battery management systems and embedded solutions at the intersection of hardware and AI. Currently researching wireless analog front-end designs with CNN/LSTM signal processing at GCT Coimbatore.
-    </p>
-    <div class="hero-actions">
-      <a href="mailto:nish.2403717710722034@gct.ac.in" class="btn btn-primary">✉ Get in Touch</a>
-      <a href="https://www.linkedin.com/in/nisha-d-540803321" target="_blank" class="btn btn-outline">LinkedIn →</a>
-    </div>
-  </div>
+  </nav>
 
-  <div class="hero-badge">
-    <div class="badge-card">
-      <div class="cgpa-num">9.4</div>
-      <div class="cgpa-label">CGPA / 10</div>
-      <div class="badge-divider"></div>
-      <div class="cgpa-inst">B.E. Electronics &amp; Instrumentation<br/>GCT Coimbatore · 2024–2028</div>
-      <div style="margin-top:0.75rem">
-        <span class="badge-pill">3rd Semester</span>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-text">
+      <div class="hero-eyebrow">
+        <span class="pulse"></span>Open to Internships &amp; Opportunities
       </div>
-    </div>
-  </div>
-</div>
-
-<hr class="divider"/>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="section-label">Technical Expertise</div>
-  <h2 class="section-title">Skills &amp; Tools</h2>
-  <div class="skills-grid">
-
-    <div class="skill-card">
-      <div class="skill-card-icon">🔌</div>
-      <div class="skill-card-title">Embedded Systems</div>
-      <div style="font-size:0.82rem;color:var(--muted)">Designing and programming microcontroller-based solutions for real-time applications.</div>
-      <div class="skill-tags">
-        <span class="tag">STM32</span>
-        <span class="tag">ESP32</span>
-        <span class="tag">Arduino</span>
-        <span class="tag">PIC</span>
-        <span class="tag">Proteus</span>
+      <h1 class="hero-name">Nisha D</h1>
+      <div class="hero-title">Electronics &amp; Instrumentation · TEDxGCT 2026 SPEAKER</div>
+      <p class="hero-bio">
+        Building intelligent battery management systems and embedded solutions at the intersection of hardware and AI.
+        Currently researching wireless analog front-end designs with CNN/LSTM signal processing at GCT Coimbatore.
+      </p>
+      <div class="hero-actions">
+        <a href="mailto:nish.2403717710722034@gct.ac.in" class="btn btn-primary">✉ Get in Touch</a>
+        <a href="https://www.linkedin.com/in/nisha-d-540803321" target="_blank" class="btn btn-outline">LinkedIn →</a>
       </div>
     </div>
 
-    <div class="skill-card">
-      <div class="skill-card-icon">🔋</div>
-      <div class="skill-card-title">Battery Management Systems</div>
-      <div style="font-size:0.82rem;color:var(--muted)">Wireless AFE design, hybrid monitoring, acoustic testing, CNN/LSTM signal analysis.</div>
-      <div class="skill-tags">
-        <span class="tag teal">BMS</span>
-        <span class="tag teal">AFE Design</span>
-        <span class="tag teal">CNN</span>
-        <span class="tag teal">LSTM</span>
+    <div class="hero-badge-glass" style="background-image: url('./image.jpeg');">
+      <div class="hero-badge-overlay"></div>
+      <div class="hero-badge-content">
+        <div class="cgpa-num">9.4</div>
+        <div class="cgpa-label">CGPA / 10</div>
+        <div class="badge-divider"></div>
+        <div class="cgpa-inst">
+          B.E. Electronics &amp; Instrumentation<br />
+          GCT Coimbatore · 2024–2028
+        </div>
+        <div style="margin-top:0.75rem">
+          <span class="badge-pill">3rd Semester</span>
+        </div>
       </div>
     </div>
 
-    <div class="skill-card">
-      <div class="skill-card-icon">📡</div>
-      <div class="skill-card-title">IoT &amp; Sensors</div>
-      <div style="font-size:0.82rem;color:var(--muted)">End-to-end IoT pipelines from sensor interfacing to cloud dashboards.</div>
-      <div class="skill-tags">
-        <span class="tag amber">ThingsBoard</span>
-        <span class="tag amber">GSM</span>
-        <span class="tag amber">Ultrasonic</span>
-        <span class="tag amber">Piezoelectric</span>
-      </div>
-    </div>
-
-    <div class="skill-card">
-      <div class="skill-card-icon">💻</div>
-      <div class="skill-card-title">Programming</div>
-      <div style="font-size:0.82rem;color:var(--muted)">From bare-metal C to Python data pipelines and digital logic in VHDL.</div>
-      <div class="skill-tags">
-        <span class="tag">C</span>
-        <span class="tag">C++</span>
-        <span class="tag">Python</span>
-        <span class="tag">VHDL</span>
-      </div>
-    </div>
 
   </div>
-</section>
 
-<hr class="divider"/>
+  <hr class="divider" />
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="section-label">Selected Work</div>
-  <h2 class="section-title">Projects</h2>
-  <div class="projects-grid">
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">Technical Expertise</div>
+    <h2 class="section-title">Skills &amp; Tools</h2>
+    <div class="skills-grid">
 
-    <div class="project-card featured">
-      <div class="project-num">★ FEATURED PROJECT</div>
-      <div class="project-title">🔋 Wireless Battery Management System (BMS)</div>
-      <div class="project-desc">
-        Research on wireless analog front-end (AFE) implementation using hybrid monitoring combined with CNN and LSTM deep learning techniques for signal noise reduction. Incorporates acoustic testing for cell health diagnostics. Also developed wireless IoT monitoring of real-time battery parameters — voltage, current, temperature — via ThingsBoard dashboard. Features adaptive heartbeat transmission that scales from 1 Hz (stable) to 5 Hz (anomaly detected) to minimise wireless overhead.
+      <div class="skill-card">
+        <div class="skill-card-icon">🔌</div>
+        <div class="skill-card-title">Embedded Systems</div>
+        <div style="font-size:0.82rem;color:var(--muted)">Designing and programming microcontroller-based solutions for
+          real-time applications.</div>
+        <div class="skill-tags">
+          <span class="tag">STM32</span>
+          <span class="tag">ESP32</span>
+          <span class="tag">Arduino</span>
+          <span class="tag">PIC</span>
+          <span class="tag">Proteus</span>
+        </div>
       </div>
-      <div class="project-stack">
-        <span class="tag teal">STM32</span>
-        <span class="tag teal">ESP32</span>
-        <span class="tag teal">CNN / LSTM</span>
-        <span class="tag teal">AFE Design</span>
-        <span class="tag teal">ThingsBoard</span>
-        <span class="tag teal">Python</span>
-        <span class="tag teal">Acoustic Testing</span>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">🔋</div>
+        <div class="skill-card-title">Battery Management Systems</div>
+        <div style="font-size:0.82rem;color:var(--muted)">Wireless AFE design, hybrid monitoring, acoustic testing,
+          CNN/LSTM signal analysis.</div>
+        <div class="skill-tags">
+          <span class="tag teal">BMS</span>
+          <span class="tag teal">AFE Design</span>
+          <span class="tag teal">CNN</span>
+          <span class="tag teal">LSTM</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">📡</div>
+        <div class="skill-card-title">IoT &amp; Sensors</div>
+        <div style="font-size:0.82rem;color:var(--muted)">End-to-end IoT pipelines from sensor interfacing to cloud
+          dashboards.</div>
+        <div class="skill-tags">
+          <span class="tag amber">ThingsBoard</span>
+          <span class="tag amber">GSM</span>
+          <span class="tag amber">Ultrasonic</span>
+          <span class="tag amber">Piezoelectric</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">💻</div>
+        <div class="skill-card-title">Programming</div>
+        <div style="font-size:0.82rem;color:var(--muted)">From bare-metal C to Python data pipelines and digital logic
+          in VHDL.</div>
+        <div class="skill-tags">
+          <span class="tag">C</span>
+          <span class="tag">C++</span>
+          <span class="tag">Python</span>
+          <span class="tag">VHDL</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">Selected Work</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+
+      <div class="project-card featured">
+        <div class="project-num">★ FEATURED PROJECT</div>
+        <div class="project-title">🔋 Wireless Battery Management System (BMS)</div>
+        <div class="project-desc">
+          Research on wireless analog front-end (AFE) implementation using hybrid monitoring combined with CNN and LSTM
+          deep learning techniques for signal noise reduction. Incorporates acoustic testing for cell health
+          diagnostics. Also developed wireless IoT monitoring of real-time battery parameters — voltage, current,
+          temperature — via ThingsBoard dashboard. Features adaptive heartbeat transmission that scales from 1 Hz
+          (stable) to 5 Hz (anomaly detected) to minimise wireless overhead.
+        </div>
+        <div class="project-stack">
+          <span class="tag teal">STM32</span>
+          <span class="tag teal">ESP32</span>
+          <span class="tag teal">CNN / LSTM</span>
+          <span class="tag teal">AFE Design</span>
+          <span class="tag teal">ThingsBoard</span>
+          <span class="tag teal">Python</span>
+          <span class="tag teal">Acoustic Testing</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">PROJECT 02</div>
+        <div class="project-title">🗑 Smart Bin — IoT Waste Monitor</div>
+        <div class="project-desc">
+          Designed and built a Smart Bin using Arduino, an ultrasonic distance sensor, and GSM module. The system
+          monitors fill level in real time and sends alerts to prevent overflow, enabling smarter urban waste
+          management.
+        </div>
+        <div class="project-stack">
+          <span class="tag">Arduino</span>
+          <span class="tag">Ultrasonic Sensor</span>
+          <span class="tag">GSM Module</span>
+          <span class="tag amber">IoT</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">PROJECT 03</div>
+        <div class="project-title">⚡ Footstep Power Generation System</div>
+        <div class="project-desc">
+          Built an energy harvesting system using piezoelectric sensors that converts mechanical energy from human
+          footsteps into usable electricity. Arduino processes the output and displays the generated voltage live on an
+          LCD screen.
+        </div>
+        <div class="project-stack">
+          <span class="tag">Arduino</span>
+          <span class="tag">Piezoelectric</span>
+          <span class="tag amber">Energy Harvesting</span>
+          <span class="tag">LCD Display</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-label">Industry Exposure</div>
+    <h2 class="section-title">Experience</h2>
+
+    <div class="exp-card">
+      <div class="exp-role">Engineering Intern</div>
+      <div class="exp-place">PRICOL Limited — Plant 1</div>
+      <div class="exp-desc">
+        Gained hands-on exposure to industrial manufacturing processes, instrumentation systems, and real-time embedded
+        control in an automotive components environment. Applied academic knowledge of sensors and electronics to live
+        production systems.
       </div>
     </div>
+  </section>
 
-    <div class="project-card">
-      <div class="project-num">PROJECT 02</div>
-      <div class="project-title">🗑 Smart Bin — IoT Waste Monitor</div>
-      <div class="project-desc">
-        Designed and built a Smart Bin using Arduino, an ultrasonic distance sensor, and GSM module. The system monitors fill level in real time and sends alerts to prevent overflow, enabling smarter urban waste management.
-      </div>
-      <div class="project-stack">
-        <span class="tag">Arduino</span>
-        <span class="tag">Ultrasonic Sensor</span>
-        <span class="tag">GSM Module</span>
-        <span class="tag amber">IoT</span>
-      </div>
-    </div>
+  <hr class="divider" />
+  <!-- SPEAKING -->
+  <section id="speaking">
+    <div class="section-label">Public Speaking</div>
+    <h2 class="section-title">TEDx Talk</h2>
 
-    <div class="project-card">
-      <div class="project-num">PROJECT 03</div>
-      <div class="project-title">⚡ Footstep Power Generation System</div>
-      <div class="project-desc">
-        Built an energy harvesting system using piezoelectric sensors that converts mechanical energy from human footsteps into usable electricity. Arduino processes the output and displays the generated voltage live on an LCD screen.
+    <div class="speaking-card">
+      <div class="speaking-header">
+        <span class="tedx-badge">TEDx</span>
+        <span class="speaking-event">TEDxGCT (2026)</span>
       </div>
-      <div class="project-stack">
-        <span class="tag">Arduino</span>
-        <span class="tag">Piezoelectric</span>
-        <span class="tag amber">Energy Harvesting</span>
-        <span class="tag">LCD Display</span>
+      <h3 class="speaking-title">Beyond Why – From the Weight of 'Why?' to the Power of 'Why?'</h3>
+      <p class="speaking-desc">
+        Delivered a TEDx talk on personal growth, resilience, and purpose, exploring how shifting our questioning
+        mindset can transform challenges into fuel for growth.
+      </p>
+      <div class="speaking-action">
+        <a href="https://youtu.be/9qKHVeav4PA?si=98p2sRPM0Gk10Tiw" target="_blank" class="btn btn-outline tedx-btn">
+          ▶ Watch Talk
+        </a>
       </div>
     </div>
+  </section>
 
-  </div>
-</section>
+  <hr class="divider" />
 
-<hr class="divider"/>
 
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="section-label">Industry Exposure</div>
-  <h2 class="section-title">Experience</h2>
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-label">Academic Background</div>
+    <h2 class="section-title">Education</h2>
+    <div class="edu-list">
 
-  <div class="exp-card">
-    <div class="exp-role">Engineering Intern</div>
-    <div class="exp-place">PRICOL Limited — Plant 1</div>
-    <div class="exp-desc">
-      Gained hands-on exposure to industrial manufacturing processes, instrumentation systems, and real-time embedded control in an automotive components environment. Applied academic knowledge of sensors and electronics to live production systems.
+      <div class="edu-item">
+        <div class="edu-year">2024 – 2028</div>
+        <div>
+          <div class="edu-degree">B.E. Electronics &amp; Instrumentation Engineering</div>
+          <div class="edu-school">Government College of Technology, Coimbatore</div>
+          <div class="edu-score">CGPA 9.4 / 10 (till 3rd Semester)</div>
+        </div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-year">2022 – 2023</div>
+        <div>
+          <div class="edu-degree">Higher Secondary (12th)</div>
+          <div class="edu-school">ELGI Matriculation Higher Secondary School</div>
+          <div class="edu-score">95%</div>
+        </div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-year">2020 – 2021</div>
+        <div>
+          <div class="edu-degree">Secondary School (10th)</div>
+          <div class="edu-school">ELGI Matriculation Higher Secondary School</div>
+          <div class="edu-score">Completed</div>
+        </div>
+      </div>
+
     </div>
-  </div>
-</section>
+  </section>
 
-<hr class="divider"/>
+  <hr class="divider" />
 
-<!-- EDUCATION -->
-<section id="education">
-  <div class="section-label">Academic Background</div>
-  <h2 class="section-title">Education</h2>
-  <div class="edu-list">
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">Let's Connect</div>
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-grid">
 
-    <div class="edu-item">
-      <div class="edu-year">2024 – 2028</div>
-      <div>
-        <div class="edu-degree">B.E. Electronics &amp; Instrumentation Engineering</div>
-        <div class="edu-school">Government College of Technology, Coimbatore</div>
-        <div class="edu-score">CGPA 9.4 / 10 (till 3rd Semester)</div>
+      <a class="contact-card" href="tel:8220178581">
+        <span class="contact-icon">📞</span>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">+91 8220178581</div>
+        </div>
+      </a>
+
+      <a class="contact-card" href="mailto:nish.2403717710722034@gct.ac.in">
+        <span class="contact-icon">✉️</span>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">nish.2403717...@gct.ac.in</div>
+        </div>
+      </a>
+
+      <a class="contact-card" href="https://www.linkedin.com/in/nisha-d-540803321" target="_blank">
+        <span class="contact-icon">🔗</span>
+        <div>
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value">linkedin.com/in/nisha-d</div>
+        </div>
+      </a>
+
+      <div class="contact-card" style="cursor:default;">
+        <span class="contact-icon">🌐</span>
+        <div>
+          <div class="contact-label">Languages</div>
+          <div class="contact-value">Tamil · English</div>
+        </div>
       </div>
+
     </div>
+  </section>
 
-    <div class="edu-item">
-      <div class="edu-year">2022 – 2023</div>
-      <div>
-        <div class="edu-degree">Higher Secondary (12th)</div>
-        <div class="edu-school">ELGI Matriculation Higher Secondary School</div>
-        <div class="edu-score">95%</div>
-      </div>
+  <footer>
+    <div>Built with ♥ for GitHub Pages · Nisha D · Electronics &amp; BMS Engineer · GCT Coimbatore</div>
+    <div style="margin-top:0.5rem;color:#3a3a5a;">
+      // open to internships in embedded systems &amp; battery management
     </div>
-
-    <div class="edu-item">
-      <div class="edu-year">2020 – 2021</div>
-      <div>
-        <div class="edu-degree">Secondary School (10th)</div>
-        <div class="edu-school">ELGI Matriculation Higher Secondary School</div>
-        <div class="edu-score">Completed</div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<hr class="divider"/>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-label">Let's Connect</div>
-  <h2 class="section-title">Contact</h2>
-  <div class="contact-grid">
-
-    <a class="contact-card" href="tel:8220178581">
-      <span class="contact-icon">📞</span>
-      <div>
-        <div class="contact-label">Phone</div>
-        <div class="contact-value">+91 8220178581</div>
-      </div>
-    </a>
-
-    <a class="contact-card" href="mailto:nish.2403717710722034@gct.ac.in">
-      <span class="contact-icon">✉️</span>
-      <div>
-        <div class="contact-label">Email</div>
-        <div class="contact-value">nish.2403717...@gct.ac.in</div>
-      </div>
-    </a>
-
-    <a class="contact-card" href="https://www.linkedin.com/in/nisha-d-540803321" target="_blank">
-      <span class="contact-icon">🔗</span>
-      <div>
-        <div class="contact-label">LinkedIn</div>
-        <div class="contact-value">linkedin.com/in/nisha-d</div>
-      </div>
-    </a>
-
-    <div class="contact-card" style="cursor:default;">
-      <span class="contact-icon">🌐</span>
-      <div>
-        <div class="contact-label">Languages</div>
-        <div class="contact-value">Tamil · English</div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<footer>
-  <div>Built with ♥ for GitHub Pages · Nisha D · Electronics &amp; BMS Engineer · GCT Coimbatore</div>
-  <div style="margin-top:0.5rem;color:#3a3a5a;">
-    // open to internships in embedded systems &amp; battery management
-  </div>
-</footer>
+  </footer>
 
 </body>
+
 </html>
